@@ -37,24 +37,24 @@ const Header = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="./blockchain.html">
+                  <Link className="nav-link" to="/blockchain">
                     Blockchain
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="./distributed.html">
+                  <Link className="nav-link" to="/distributed">
                     Distributed
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="./tokens.html">
+                  <Link className="nav-link" to="/tokens">
                     Tokens
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="./coinbase.html">
+                  <Link className="nav-link" to="/coinbase">
                     Coinbase
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

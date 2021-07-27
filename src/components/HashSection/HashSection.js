@@ -4,26 +4,30 @@ import "../../Assets/css/style.css";
 const HashSection = () => {
   return (
     <div>
-      <section class="hash-section mt-4">
-        <div class="container">
+      <section className="hash-section mt-4">
+        <div className="container">
           <h1>SHA256 Hash</h1>
-          <div class="form form-bg-primary">
-            <form class="form-horizontal">
-              <div class="form-group row">
-                <label class="col-sm-2 label" for="data">
+          <div className="form form-bg-primary">
+            <form className="form-horizontal">
+              <div className="form-group row">
+                <label className="col-sm-2 label" for="data">
                   Data:
                 </label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" id="data" rows="10"></textarea>
+                <div className="col-sm-10">
+                  <textarea
+                    className="form-control"
+                    id="data"
+                    rows="10"
+                  ></textarea>
                 </div>
               </div>
-              <div class="form-group row mt-2">
-                <label class="col-sm-2 label" for="hash">
+              <div className="form-group row mt-2">
+                <label className="col-sm-2 label" for="hash">
                   Hash:
                 </label>
-                <div class="col-sm-10">
+                <div className="col-sm-10">
                   <input
-                    class="form-control"
+                    className="form-control"
                     type="text"
                     disabled=""
                     value="1234543vv4gh4j4hv"

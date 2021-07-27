@@ -1,12 +1,10 @@
 import React from "react";
-import "../../Assets/css/style.css";
 
-const Block = () => {
+const Peer = () => {
   return (
     <div>
-      <section className="block-section mt-4">
-        <div className="container">
-          <h1>Block</h1>
+      <div className="row d-inline">
+        <div className="col-xs-7">
           <div className="form form-bg-sucess">
             <form className="form-horizontal">
               <div className="form-group row mb-3">
@@ -28,6 +26,17 @@ const Block = () => {
                 <label className="col-sm-2 label">Data:</label>
                 <div className="col-sm-10">
                   <textarea className="form-control" rows="8"></textarea>
+                </div>
+              </div>
+              <div className="form-group row mb-3">
+                <label className="col-sm-2 label">Prev:</label>
+                <div className="col-sm-10">
+                  <input
+                    className="form-control"
+                    type="text"
+                    disabled=""
+                    value="09876dshbn876w2tfvw76t"
+                  />
                 </div>
               </div>
               <div className="form-group row mb-3">
@@ -58,9 +67,9 @@ const Block = () => {
             </form>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
 
-export default Block;
+export default Peer;
