@@ -40,8 +40,8 @@ const HashSection = (props) => {
                   <input
                     className="form-control"
                     type="text"
-                    disabled
                     value={hash}
+                    readOnly
                   />
                 </div>
               </div>
