@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../Assets/css/style.css";
 
-const HashSection = () => {
+const HashSection = (props) => {
+  const { calcHash } = props;
+
+  const [data, updateData] = useState("");
+  const [hash, updateHash] = useState(calcHash(data));
+
+  const handleChange = (e) => {
+    updateData(e.target.value);
+    updateHash(calcHash(data));
+  };
   return (
     <div>
       <section className="hash-section mt-4">
@@ -18,6 +27,8 @@ const HashSection = () => {
                     className="form-control"
                     id="data"
                     rows="10"
+                    value={data}
+                    onChange={handleChange}
                   ></textarea>
                 </div>
               </div>
@@ -29,8 +40,8 @@ const HashSection = () => {
                   <input
                     className="form-control"
                     type="text"
-                    disabled=""
-                    value="1234543vv4gh4j4hv"
+                    disabled
+                    value={hash}
                   />
                 </div>
               </div>

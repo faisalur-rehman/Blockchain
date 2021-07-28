@@ -7,15 +7,18 @@ import BlockChain from "./components/BlockChain/BlockChain";
 import Distributed from "./components/Distributed/Distributed";
 import Tokens from "./components/Tokens/Tokens";
 import Coinbase from "./components/Coinbase/Coinbase";
+import { useCrypto } from "./hooks/useCrypto";
 
 function App() {
+  const [calcHash] = useCrypto();
+
   return (
     <div>
       <Router>
         <Header />
         <Switch>
           <Route exact path="/">
-            <HashSection />
+            <HashSection calcHash={calcHash} />
           </Route>
           <Route exact path="/block">
             <Block />
