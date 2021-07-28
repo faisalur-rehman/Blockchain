@@ -2,12 +2,12 @@ import "./App.css";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import HashSection from "./components/HashSection/HashSection";
-import BlockChain from "./components/BlockChain/BlockChain";
 import Distributed from "./components/Distributed/Distributed";
 import Tokens from "./components/Tokens/Tokens";
-import Coinbase from "./components/Coinbase/Coinbase";
 import { useCrypto } from "./hooks/useCrypto";
 import Block from "./components/Block/Block";
+import BlockChain from "./components/BlockChain/Blockchain";
+import Coinbase from "./components/Coinbase/Coinbase";
 
 function App() {
   const [calcHash] = useCrypto();

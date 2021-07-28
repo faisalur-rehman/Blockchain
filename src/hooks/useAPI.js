@@ -3,19 +3,13 @@ import axios from "axios";
 const baseURL = `http://localhost:8000/blockchain`; // TODO
 
 export const useApi = () => {
-  //   const getBlock = () => {
-  //     return axios.get(`${baseURL}/block`);
-  //   };
-  // const getBlock = index => {
-  //     if(index){
-  //         return axios.get(`${baseURL}/block/${index}`)
-  //     }
-  //     return axios.get(`${baseURL}/block`)
-  // }
+  const getBlock = () => {
+    return axios.get(`${baseURL}/block`);
+  };
 
-  //   const postBlock = (block) => {
-  //     return axios.post(`${baseURL}/mine`, { ...block });
-  //   };
+  const postBlock = (block) => {
+    return axios.post(`${baseURL}/mine`, { ...block });
+  };
 
   const getBlockchain = () => {
     return axios.get(`${baseURL}/blockchain`);
@@ -35,8 +29,8 @@ export const useApi = () => {
   const postCoinbase = (mine_index, blockchain) => {};
 
   return [
-    // getBlock,
-    // postBlock,
+    getBlock,
+    postBlock,
     getBlockchain,
     postBlockchain,
     getTokens,
