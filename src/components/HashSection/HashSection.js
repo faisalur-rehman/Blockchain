@@ -8,8 +8,8 @@ const HashSection = (props) => {
   const [hash, updateHash] = useState(calcHash(data));
 
   const handleChange = (e) => {
+    updateHash(calcHash(e.target.value));
     updateData(e.target.value);
-    updateHash(calcHash(data));
   };
   return (
     <div>
