@@ -1,9 +1,9 @@
 import sha256 from "crypto-js/sha256";
-// import { useState } from "react";
+import { useState } from "react";
 // import { useApi } from "./useAPI";
 
 export const useCrypto = () => {
-  //   const [blockchain, overwriteBlockchain] = useState([]);
+  const [blockchain, overwriteBlockchain] = useState([]);
 
   // const [getBlock, postBlock, getBlockchain, postBlockchain, getTokens, postTokens, getCoinbase, postCoinbase] = useApi()
 
@@ -11,5 +11,5 @@ export const useCrypto = () => {
     return sha256(nonce + data);
   };
 
-  return [calcHash];
+  return [calcHash, blockchain];
 };

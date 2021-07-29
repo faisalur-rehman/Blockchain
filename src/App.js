@@ -9,10 +9,10 @@ import Block from "./components/Block/Block";
 import BlockChain from "./components/BlockChain/Blockchain";
 import Coinbase from "./components/Coinbase/Coinbase";
 import KeysHeader from "./components/Keys/KeysHeader/KeyHeader";
-import Signatures from "./components/Keys/Signatures/Signatures";
 import Transaction from "./components/Keys/Transaction/Transaction";
 import KeyPair from "./components/Keys/KeyPairs/KeyPair";
 import KeyBlockchain from "./components/Keys/Blockchain/KeyBlockchain";
+import Signature from "./components/Keys/Signatures/Signature";
 
 function App() {
   const [calcHash] = useCrypto();
@@ -31,7 +31,7 @@ function App() {
           </Route>
           <Route path="/blockchain">
             <Header />
-            <BlockChain />
+            <BlockChain calcHash={calcHash} />
           </Route>
           <Route path="/distributed">
             <Header />
@@ -51,7 +51,7 @@ function App() {
           </Route>
           <Route path="/key/signatures">
             <KeysHeader />
-            <Signatures />
+            <Signature />
           </Route>
           <Route path="/key/transaction">
             <KeysHeader />

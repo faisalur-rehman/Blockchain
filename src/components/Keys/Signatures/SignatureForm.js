@@ -1,6 +1,6 @@
 import React from "react";
 
-const Signatures = () => {
+const SignatureForm = ({ privateKey }) => {
   return (
     <div>
       <section class="mt-5">
@@ -60,7 +60,11 @@ const Signatures = () => {
                     </div>
                     <div class="form-group mb-3">
                       <label class="label">Private Key</label>
-                      <input class="form-control" type="number" />
+                      <input
+                        class="form-control"
+                        type="number"
+                        value={privateKey}
+                      />
                     </div>
                     <div class="form-group mb-3">
                       <button class="btn btn-block btn-primary" type="button">
@@ -117,4 +121,4 @@ const Signatures = () => {
   );
 };
 
-export default Signatures;
+export default SignatureForm;

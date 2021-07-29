@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const BlockChainForm = ({ data }) => {
+const BlockChainForm = ({ data, hashValues, handleChange, hash }) => {
+  const [prevValues, setPrevValues] = useState([
+    "0000000000000000000000000000000000000000000000000000000000000000",
+  ]);
+  console.log("hash", hash);
+  useEffect(() => {
+    hashValues.map((hash) => setPrevValues((prev) => [...prev, hash]));
+    //eslint-disable-next-line
+  }, []);
+  console.log("prevVales", prevValues);
   return (
     <div>
       <section className="blockchain-section mt-4">
@@ -9,7 +18,7 @@ const BlockChainForm = ({ data }) => {
           <div className="scrolling-wrapper">
             <div className="container1 ">
               {data.length > 0 &&
-                data.map((block) => (
+                data.map((block, index) => (
                   <>
                     <div className="row d-inline">
                       <div className="col-xs-7">
@@ -34,7 +43,7 @@ const BlockChainForm = ({ data }) => {
                                 <input
                                   className="form-control"
                                   type="text"
-                                  value={block.nounce}
+                                  value={block.nonce}
                                 />
                               </div>
                             </div>
@@ -44,7 +53,10 @@ const BlockChainForm = ({ data }) => {
                                 <textarea
                                   className="form-control"
                                   rows="8"
-                                  value={block.txs}
+                                  value={block.data}
+                                  onChange={({ target }) =>
+                                    handleChange(target.value, index)
+                                  }
                                 ></textarea>
                               </div>
                             </div>
@@ -54,7 +66,7 @@ const BlockChainForm = ({ data }) => {
                                 <input
                                   className="form-control"
                                   type="text"
-                                  value={block.previous}
+                                  value={prevValues[index]}
                                 />
                               </div>
                             </div>
