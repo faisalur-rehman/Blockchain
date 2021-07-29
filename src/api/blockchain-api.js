@@ -19,3 +19,6 @@ export function getTokens() {
 export function getCoinbase() {
   return api.get(`/coinbase`);
 }
+export function postBlock(data) {
+  return api.post(`/mine`, { data });
+}

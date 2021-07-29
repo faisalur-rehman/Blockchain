@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getBlock } from "../../api/blockchain-api";
+import { getBlock, postBlock } from "../../api/blockchain-api";
 import BlockForm from "./BlockForm";
 
 const Block = () => {
@@ -15,12 +15,14 @@ const Block = () => {
     //eslint-disable-next-line
   }, []);
 
-  console.log("data", data);
-  async function handleSubmit({ formValues }) {
+  async function handleSubmit(formValues) {
     console.log("forms values", formValues);
     try {
-      //   const data = await postBlock(formValues);
+      const {
+        data: { data },
+      } = await postBlock(formValues);
       console.log("returned data", data);
+      setData(data);
     } catch (error) {
       console.log(error.response);
     }

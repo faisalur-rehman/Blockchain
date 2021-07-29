@@ -27,7 +27,7 @@ function App() {
           </Route>
           <Route path="/block">
             <Header />
-            <Block />
+            <Block calcHash={calcHash} />
           </Route>
           <Route path="/blockchain">
             <Header />

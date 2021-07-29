@@ -1,13 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../../Assets/css/style.css";
+import { useCrypto } from "../../hooks/useCrypto";
 
 export default function BlockForm({ handleSubmit, allData }) {
-  const [index, setIndex] = useState(allData.block);
-  const [nonce, setNonce] = useState(allData.nonce);
-  const [data, setData] = useState(allData.txs);
+  console.log("all data", allData);
+  const [calcHash] = useCrypto();
+  const [index, setIndex] = useState("");
+  const [nonce, setNonce] = useState("");
+  const [data, setData] = useState("");
+  const [hash, setHash] = useState("");
+
+  useEffect(() => {
+    setIndex(allData.block);
+    setNonce(allData.nonce);
+    setData(allData.data);
+    setHash(allData.hash);
+
+    //eslint-disable-next-line
+  }, [allData]);
+
+  function handleIndex({ target }) {
+    setHash(calcHash(target.value));
+    setIndex(target.value);
+  }
+  function handleNonce({ target }) {
+    setHash(calcHash(target.value));
+    setNonce(target.value);
+  }
+
+  function handleData({ target }) {
+    setHash(calcHash(target.value));
+    setData(target.value);
+  }
+
   function handleFormSubmit(e) {
     e.preventDefault();
-    handleSubmit({ index, nonce, data });
+    handleSubmit({ data });
   }
   return (
     <div>
@@ -25,7 +53,7 @@ export default function BlockForm({ handleSubmit, allData }) {
                       className="form-control"
                       type="number"
                       value={index}
-                      onChange={({ target }) => setIndex(target.value)}
+                      onChange={handleIndex}
                     />
                   </div>
                 </div>
@@ -37,7 +65,7 @@ export default function BlockForm({ handleSubmit, allData }) {
                     className="form-control"
                     type="text"
                     value={nonce}
-                    onChange={({ target }) => setNonce(target.value)}
+                    onChange={handleNonce}
                   />
                 </div>
               </div>
@@ -48,7 +76,7 @@ export default function BlockForm({ handleSubmit, allData }) {
                     className="form-control"
                     rows="8"
                     value={data}
-                    onChange={({ target }) => setData(target.value)}
+                    onChange={handleData}
                   ></textarea>
                 </div>
               </div>
@@ -60,7 +88,7 @@ export default function BlockForm({ handleSubmit, allData }) {
                     type="text"
                     disabled
                     readOnly
-                    value={allData.hash}
+                    value={hash}
                   />
                 </div>
               </div>
