@@ -1,6 +1,6 @@
 import React from "react";
 
-const KeyPairs = () => {
+const KeyPairsForm = ({ data }) => {
   return (
     <div>
       <section class="mt-5">
@@ -14,7 +14,11 @@ const KeyPairs = () => {
                     Private Key
                   </label>
                   <div class="input-group">
-                    <input class="form-control" type="number" />
+                    <input
+                      class="form-control"
+                      type="number"
+                      value={data.private}
+                    />
                     <span class="input-group-btn">
                       <button class="btn btn-secondary" type="button">
                         Random
@@ -24,7 +28,12 @@ const KeyPairs = () => {
                 </div>
                 <div class="form-group">
                   <label class="label">Public Key</label>
-                  <input class="form-control" disabled="" />
+                  <input
+                    class="form-control"
+                    value={data.public}
+                    disabled
+                    readOnly
+                  />
                 </div>
               </form>
             </div>
@@ -35,4 +44,4 @@ const KeyPairs = () => {
   );
 };
 
-export default KeyPairs;
+export default KeyPairsForm;

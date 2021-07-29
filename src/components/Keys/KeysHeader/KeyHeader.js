@@ -24,7 +24,7 @@ const KeysHeader = () => {
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav ms-auto d-flex mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <Link to="/key" class="nav-link active" aria-current="page">
+                  <Link to="/key" class="nav-link" aria-current="page">
                     Keys
                   </Link>
                 </li>
