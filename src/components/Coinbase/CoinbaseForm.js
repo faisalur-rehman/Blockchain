@@ -161,7 +161,8 @@ const CoinbaseForm = ({ data }) => {
                                   <input
                                     class="form-control"
                                     type="text"
-                                    disabled=""
+                                    disabled
+                                    readOnly
                                     value={coin.hash}
                                   />
                                 </div>
