@@ -1,6 +1,13 @@
 import React from "react";
 
-const KeyPairsForm = ({ data }) => {
+const KeyPairsForm = ({
+  data,
+  handleSubmit,
+  privateKey,
+  handleChange,
+  publicKey,
+}) => {
+  console.log("private key", privateKey);
   return (
     <div>
       <section class="mt-5">
@@ -17,7 +24,8 @@ const KeyPairsForm = ({ data }) => {
                     <input
                       class="form-control"
                       type="number"
-                      value={data.private}
+                      value={privateKey}
+                      onChange={({ target }) => handleChange(target.value)}
                     />
                     <span class="input-group-btn">
                       <button class="btn btn-secondary" type="button">
@@ -30,7 +38,7 @@ const KeyPairsForm = ({ data }) => {
                   <label class="label">Public Key</label>
                   <input
                     class="form-control"
-                    value={data.public}
+                    value={publicKey}
                     disabled
                     readOnly
                   />

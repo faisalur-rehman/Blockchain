@@ -10,3 +10,6 @@ export function getKey() {
 export function getKeyBlockchain() {
   return keyApi.get(`/blockchain`);
 }
+export function generateKey(key) {
+  return keyApi.post(`/generate`, { private_key: key });
+}
