@@ -13,3 +13,6 @@ export function getKeyBlockchain() {
 export function generateKey(key) {
   return keyApi.post(`/generate`, { private_key: key });
 }
+export function postSignature(data) {
+  return keyApi.post(`/sign`, { ...data });
+}

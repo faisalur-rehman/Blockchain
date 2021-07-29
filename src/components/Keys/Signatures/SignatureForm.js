@@ -1,6 +1,12 @@
 import React from "react";
 
-const SignatureForm = ({ privateKey }) => {
+const SignatureForm = ({
+  privateKey,
+  message,
+  handleChange,
+  handleSubmit,
+  signature,
+}) => {
   return (
     <div>
       <section class="mt-5">
@@ -54,7 +60,12 @@ const SignatureForm = ({ privateKey }) => {
                       <label class="label" for="data">
                         Message
                       </label>
-                      <textarea class="form-control" rows="5">
+                      <textarea
+                        class="form-control"
+                        rows="5"
+                        value={message}
+                        onChange={({ target }) => handleChange(target.value)}
+                      >
                         {" "}
                       </textarea>
                     </div>
@@ -67,7 +78,11 @@ const SignatureForm = ({ privateKey }) => {
                       />
                     </div>
                     <div class="form-group mb-3">
-                      <button class="btn btn-block btn-primary" type="button">
+                      <button
+                        class="btn btn-block btn-primary"
+                        type="button"
+                        onClick={handleSubmit}
+                      >
                         Sign
                       </button>
                     </div>
@@ -76,7 +91,9 @@ const SignatureForm = ({ privateKey }) => {
                       <input
                         class="form-control"
                         id="sign-signature"
-                        disabled=""
+                        disabled
+                        readOnly
+                        value={signature}
                       />
                     </div>
                   </form>
