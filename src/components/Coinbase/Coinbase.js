@@ -14,7 +14,6 @@ const Coinbase = () => {
     fetchData();
     //eslint-disable-next-line
   }, []);
-  console.log("all coinbase", data);
   return <div>{data.length > 0 && <CoinbaseForm data={data} />}</div>;
 };
 
