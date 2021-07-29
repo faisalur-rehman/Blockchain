@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Signatures = () => {
   return (
@@ -19,7 +18,7 @@ const Signatures = () => {
                     class="nav-link active"
                     id="sign-tab"
                     data-toggle="tab"
-                    href="/key/signature/#sign"
+                    href="#sign"
                     role="tab"
                     aria-controls="sign"
                     aria-selected="true"
@@ -29,7 +28,7 @@ const Signatures = () => {
                 </li>
                 <li class="nav-item">
                   <a
-                    class="nav-link"
+                    class="nav-link "
                     id="verify-tab"
                     data-toggle="tab"
                     href="#verify"
