@@ -1,6 +1,18 @@
 import React from "react";
 
-const TransactionForm = () => {
+const TransactionForm = ({
+  privateKey,
+  amount,
+  to,
+  from,
+  handleChange,
+  handleSubmit,
+  handleVerifySubmit,
+  signature,
+  publicKey,
+  handleTo,
+  handleFrom,
+}) => {
   return (
     <div>
       <section className="mt-5">
@@ -49,7 +61,10 @@ const TransactionForm = () => {
                   role="tabpanel"
                   aria-labelledby="sign-tab"
                 >
-                  <form className="form-horizontal">
+                  <form
+                    className="form-horizontal"
+                    onSubmit={(e) => e.preventDefault()}
+                  >
                     <div className="form-group mb-3">
                       <label className="label" for="data">
                         Message
@@ -59,30 +74,38 @@ const TransactionForm = () => {
                         <input
                           className="form-control"
                           id="sign-amount"
-                          value="20.00"
+                          value={amount}
+                          onChange={({ target }) => handleChange(target.value)}
                         />
                         <div className="input-group-addon">From:</div>
                         <input
                           className="form-control"
-                          value="0982sh86dfxgah"
+                          value={from}
                           id="sign-from"
+                          onChange={({ target }) => handleFrom(target.value)}
                         />
                         <div className="input-group-addon">-&gt;</div>
                         <input
                           className="form-control"
                           id="sign-to"
-                          value="04cc955bf8e359cc7ebbb66f4c2dc616a93e8ba08e93d27996e20299ba92cba9cbd73c2ff46ed27a3727ba09486ba32b5ac35dd20c0adec020536996ca4d9f3d74"
+                          value={to}
+                          onChange={({ target }) => handleTo(target.value)}
                         />
                       </div>
                     </div>
                     <div className="form-group mb-3">
                       <label className="label">Private Key</label>
-                      <input className="form-control" type="number" />
+                      <input
+                        className="form-control"
+                        type="number"
+                        value={privateKey}
+                      />
                     </div>
                     <div className="form-group mb-3">
                       <button
                         className="btn btn-block btn-primary"
                         type="button"
+                        onClick={handleSubmit}
                       >
                         Sign
                       </button>
@@ -93,6 +116,7 @@ const TransactionForm = () => {
                         className="form-control"
                         id="sign-signature"
                         disabled=""
+                        value={signature}
                       />
                     </div>
                   </form>
@@ -113,31 +137,36 @@ const TransactionForm = () => {
                         <input
                           className="form-control"
                           id="sign-amount"
-                          value="20.00"
+                          value={amount}
                         />
                         <div className="input-group-addon">From:</div>
                         <input
                           className="form-control"
-                          value="0982sh86dfxgah"
+                          value={from}
                           id="sign-from"
                         />
                         <div className="input-group-addon">-&gt;</div>
                         <input
                           className="form-control"
                           id="sign-to"
-                          value="04cc955bf8e359cc7ebbb66f4c2dc616a93e8ba08e93d27996e20299ba92cba9cbd73c2ff46ed27a3727ba09486ba32b5ac35dd20c0adec020536996ca4d9f3d74"
+                          value={to}
                         />
                       </div>
                     </div>
                     <div className="form-group mb-3">
                       <label className="label">Message Signature</label>
-                      <input className="form-control" id="sign-signature" />
+                      <input
+                        className="form-control"
+                        id="sign-signature"
+                        value={signature}
+                      />
                     </div>
 
                     <div className="form-group mb-3">
                       <button
                         className="btn btn-block btn-primary"
                         type="button"
+                        onClick={handleVerifySubmit}
                       >
                         Verify
                       </button>
