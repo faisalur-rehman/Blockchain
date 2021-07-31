@@ -124,6 +124,6 @@ ul li:active {
   min-width: 180%;
   height: 90%;
 }
-.red-bg {
-  background-color: rgb(230, 128, 85);
+.bg {
+  background-color: rgb(235, 175, 173);
 }

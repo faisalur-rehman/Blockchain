@@ -3,11 +3,11 @@ import { getBlockChain } from "../../api/blockchain-api";
 import { useCrypto } from "../../hooks/useCrypto";
 import BlockChainForm from "./BlockChainForm";
 
-const BlockChain = ({ calcHash }) => {
-  // const [calcHash] = useCrypto();
+const BlockChain = () => {
+  const [calcHash] = useCrypto();
 
   const [data, setData] = useState([]);
-  const [hash, setHash] = useState(calcHash(12));
+  const [hash, setHash] = useState();
   const [hashValues, setHashValues] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const BlockChain = ({ calcHash }) => {
 
   function handleChange(value, index) {
     console.log("value", value);
-    // console.log(calcHash(value));
+    setHash(calcHash(value));
   }
 
   console.log("data", hash);

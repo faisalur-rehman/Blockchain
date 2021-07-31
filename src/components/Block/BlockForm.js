@@ -3,12 +3,14 @@ import "../../Assets/css/style.css";
 import { useCrypto } from "../../hooks/useCrypto";
 
 export default function BlockForm({ handleSubmit, allData }) {
-  console.log("all data", allData);
   const [calcHash] = useCrypto();
   const [index, setIndex] = useState("");
   const [nonce, setNonce] = useState("");
   const [data, setData] = useState("");
   const [hash, setHash] = useState("");
+  const [changeColor, setChangeColor] = useState(false);
+  let prevHash = "";
+  prevHash = allData.hash;
 
   useEffect(() => {
     setIndex(allData.block);
@@ -29,20 +31,29 @@ export default function BlockForm({ handleSubmit, allData }) {
   }
 
   function handleData({ target }) {
-    setHash(calcHash(target.value));
-    setData(target.value);
+    console.log("prev", prevHash);
+    if (target.value === "") {
+      setHash(prevHash);
+      setData(target.value);
+      setChangeColor(false);
+    } else {
+      setHash(calcHash(target.value));
+      setData(target.value);
+      setChangeColor(true);
+    }
   }
 
   function handleFormSubmit(e) {
     e.preventDefault();
     handleSubmit({ data });
   }
+  let bg = changeColor ? "bg" : "";
   return (
     <div>
       <section className="block-section mt-4">
         <div className="container">
           <h1>Block</h1>
-          <div className="form form-bg-sucess">
+          <div className={`form form-bg-sucess ${bg}`}>
             <form className="form-horizontal" onSubmit={handleFormSubmit}>
               <div className="form-group row mb-3">
                 <label className="col-sm-2 label">Block:</label>
@@ -54,6 +65,7 @@ export default function BlockForm({ handleSubmit, allData }) {
                       type="number"
                       value={index}
                       onChange={handleIndex}
+                      readOnly
                     />
                   </div>
                 </div>
@@ -66,6 +78,7 @@ export default function BlockForm({ handleSubmit, allData }) {
                     type="text"
                     value={nonce}
                     onChange={handleNonce}
+                    readOnly
                   />
                 </div>
               </div>
