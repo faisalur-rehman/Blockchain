@@ -3,7 +3,7 @@ import { getBlockChain, postBlock } from "../../api/blockchain-api";
 import { useCrypto } from "../../hooks/useCrypto";
 import BlockChainForm from "./BlockChainForm";
 
-const BlockChain = () => {
+const BlockChain = ({ title }) => {
   const [calcHash] = useCrypto();
 
   const [data, setData] = useState([]);
@@ -57,7 +57,6 @@ const BlockChain = () => {
       const {
         data: { data },
       } = await postBlock({ block, previous });
-      console.log("returned data", data);
       newArr[index] = data;
       newHashValues[index] = data.hash;
       colorArr[index] = false;
@@ -69,8 +68,6 @@ const BlockChain = () => {
     }
   }
 
-  console.log("data", data);
-
   return (
     <div>
       {data.length > 0 && hashValues.length > 0 && (
@@ -80,6 +77,7 @@ const BlockChain = () => {
           handleChange={handleChange}
           changeColor={changeColor}
           handleSubmit={handleSubmit}
+          title={title}
         />
       )}
     </div>

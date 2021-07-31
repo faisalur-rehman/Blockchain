@@ -7,6 +7,7 @@ const BlockChainForm = ({
   handleChange,
   changeColor,
   handleSubmit,
+  title,
 }) => {
   const [prevValues, setPrevValues] = useState([]);
   useEffect(() => {
@@ -20,7 +21,7 @@ const BlockChainForm = ({
     <div>
       <section className="blockchain-section mt-4">
         <div className="container-fluid">
-          <h1>Blockchain</h1>
+          <h1>{title}</h1>
           <div className="scrolling-wrapper">
             <div className="container1 ">
               {data.length > 0 &&

@@ -1,41 +1,12 @@
 import React from "react";
-import Peer from "./Peer/Peer";
+import BlockChain from "../BlockChain/Blockchain";
 
 const Distributed = () => {
   return (
     <>
-      <div className="container-fluid">
-        <div className="scrolling-wrapper">
-          <h2>Peer A</h2>
-          <div className="container1">
-            <Peer />
-            <Peer />
-            <Peer />
-            <Peer />
-            <Peer />
-          </div>
-        </div>
-        <div className="scrolling-wrapper">
-          <h2>Peer B</h2>
-          <div className="container1">
-            <Peer />
-            <Peer />
-            <Peer />
-            <Peer />
-            <Peer />
-          </div>
-        </div>
-        <div className="scrolling-wrapper">
-          <h2>Peer C</h2>
-          <div className="container1">
-            <Peer />
-            <Peer />
-            <Peer />
-            <Peer />
-            <Peer />
-          </div>
-        </div>
-      </div>
+      <BlockChain title="Peer A" />
+      <BlockChain title="Peer B" />
+      <BlockChain title="Peer C" />
     </>
   );
 };

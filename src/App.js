@@ -31,7 +31,7 @@ function App() {
           </Route>
           <Route path="/blockchain">
             <Header />
-            <BlockChain />
+            <BlockChain title="Blockchain" />
           </Route>
           <Route path="/distributed">
             <Header />
