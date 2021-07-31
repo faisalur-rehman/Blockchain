@@ -19,12 +19,15 @@ const KeyPair = () => {
     //eslint-disable-next-line
   }, []);
 
-  async function handlePrivateChange(value) {
+  function handlePrivateChange(value) {
     setPrivateKey(value);
+  }
+  async function handleSubmit(e) {
+    e.preventDefault();
     try {
       const {
         data: { data },
-      } = await generateKey(value);
+      } = await generateKey(privateKey);
       console.log("returned key", data);
       setpublicKey(data.public_key);
     } catch (error) {
@@ -40,6 +43,7 @@ const KeyPair = () => {
           privateKey={privateKey}
           publicKey={publicKey}
           handleChange={handlePrivateChange}
+          handleSubmit={handleSubmit}
         />
       )}
     </div>

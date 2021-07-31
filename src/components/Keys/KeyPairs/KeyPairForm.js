@@ -15,7 +15,7 @@ const KeyPairsForm = ({
           <div class="card">
             <h4 class="card-header">Public / Private Key Pairs</h4>
             <div class="card-body">
-              <form class="form-horizontal">
+              <form class="form-horizontal" onSubmit={(e) => handleSubmit(e)}>
                 <div class="form-group">
                   <label class="label" for="data">
                     Private Key
@@ -42,6 +42,15 @@ const KeyPairsForm = ({
                     disabled
                     readOnly
                   />
+                </div>
+                <div>
+                  <button
+                    className="btn btn-primary ladda-button"
+                    id="block1chain1mineButton"
+                    data-style="expand-right"
+                  >
+                    <span className="ladda-label">Generate</span>
+                  </button>
                 </div>
               </form>
             </div>
