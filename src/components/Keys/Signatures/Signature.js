@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getKey, postSignature } from "../../../api/keys-api";
+import { getKey, postSignature, verifySignature } from "../../../api/keys-api";
 import SignatureForm from "./SignatureForm";
 
 const Signature = () => {
@@ -18,7 +18,6 @@ const Signature = () => {
     fetchBlockData();
     //eslint-disable-next-line
   }, []);
-  console.log("data", data);
 
   function handleMessage(value) {
     setMessage(value);
@@ -29,7 +28,17 @@ const Signature = () => {
         data: { data },
       } = await postSignature({ private_key: privateKey, message });
       setSignature(data.signature);
-      console.log("sign data", data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+  async function handleVerifySubmit() {
+    try {
+      const {
+        data: { data },
+      } = await verifySignature({ public_key: privateKey, message, signature });
+      setSignature(data.signature);
+      console.log("verified data", data);
     } catch (error) {
       console.log(error.response);
     }
@@ -43,6 +52,8 @@ const Signature = () => {
           handleChange={handleMessage}
           handleSubmit={handleSubmit}
           signature={signature}
+          message={message}
+          handleVerifySubmit={handleVerifySubmit}
         />
       )}
     </div>

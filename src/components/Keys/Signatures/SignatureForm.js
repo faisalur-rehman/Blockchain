@@ -5,6 +5,7 @@ const SignatureForm = ({
   message,
   handleChange,
   handleSubmit,
+  handleVerifySubmit,
   signature,
 }) => {
   return (
@@ -104,7 +105,10 @@ const SignatureForm = ({
                   role="tabpanel"
                   aria-labelledby="verify-tab"
                 >
-                  <form class="form-horizontal">
+                  <form
+                    class="form-horizontal"
+                    onSubmit={(e) => handleVerifySubmit(e)}
+                  >
                     <div class="form-group mb-3">
                       <label class="label">Message</label>
                       <textarea
@@ -112,18 +116,27 @@ const SignatureForm = ({
                         id="verify-message"
                         rows="5"
                         aria-label="Message"
-                      ></textarea>
+                        value={message}
+                      />
                     </div>
                     <div class="form-group mb-3">
                       <label class="label">Public Key</label>
-                      <input class="form-control" id="publicKey" />
+                      <input
+                        class="form-control"
+                        id="publicKey"
+                        value={privateKey}
+                      />
                     </div>
                     <div class="form-group mb-3">
                       <label class="label">Signature</label>
-                      <input class="form-control" id="verify-signature" />
+                      <input
+                        class="form-control"
+                        id="verify-signature"
+                        value={signature}
+                      />
                     </div>
                     <div class="form-group mb-3">
-                      <button class="btn btn-block btn-primary" type="button">
+                      <button class="btn btn-block btn-primary" type="submit">
                         Verify
                       </button>
                     </div>

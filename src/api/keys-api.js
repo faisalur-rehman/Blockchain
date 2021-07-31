@@ -16,3 +16,6 @@ export function generateKey(key) {
 export function postSignature(data) {
   return keyApi.post(`/sign`, { ...data });
 }
+export function verifySignature(data) {
+  return keyApi.post(`/verify`, { ...data });
+}
