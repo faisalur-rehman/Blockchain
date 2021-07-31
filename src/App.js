@@ -3,7 +3,6 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import HashSection from "./components/HashSection/HashSection";
 import Distributed from "./components/Distributed/Distributed";
-import Tokens from "./components/Tokens/Tokens";
 import { useCrypto } from "./hooks/useCrypto";
 import Block from "./components/Block/Block";
 import BlockChain from "./components/BlockChain/Blockchain";
@@ -13,6 +12,7 @@ import Transaction from "./components/Keys/Transaction/Transaction";
 import KeyPair from "./components/Keys/KeyPairs/KeyPair";
 import KeyBlockchain from "./components/Keys/Blockchain/KeyBlockchain";
 import Signature from "./components/Keys/Signatures/Signature";
+import Tokens from "./components/Tokens/Tokens";
 
 function App() {
   const [calcHash] = useCrypto();

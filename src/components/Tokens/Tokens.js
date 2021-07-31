@@ -1,141 +1,188 @@
-import React, { useEffect, useState } from "react";
-import { getTokens } from "../../api/blockchain-api";
+import React, { useState, useEffect } from "react";
+import TokensForm from "./TokensForm";
+import { getTokens, postBlock } from "../../api/blockchain-api";
+import { useCrypto } from "../../hooks/useCrypto";
 
 const Tokens = () => {
-  const [data, setData] = useState([]);
+  const [calcHash] = useCrypto();
+  const [dataA, setDataA] = useState([]);
+  const [dataB, setDataB] = useState([]);
+  const [dataC, setDataC] = useState([]);
+  const [changeColorA, setchangeColorA] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const [changeColorB, setchangeColorB] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const [changeColorC, setchangeColorC] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const [hashValuesA, setHashValuesA] = useState([]);
+  const [hashValuesB, setHashValuesB] = useState([]);
+  const [hashValuesC, setHashValuesC] = useState([]);
+
   useEffect(() => {
     async function fetchData() {
       const {
         data: { data },
       } = await getTokens();
-      setData(data);
+      data.map((item) => setHashValuesA((prev) => [...prev, item.hash]));
+      data.map((item) => setHashValuesB((prev) => [...prev, item.hash]));
+      data.map((item) => setHashValuesC((prev) => [...prev, item.hash]));
+      setDataA(data);
+      setDataB(data);
+      setDataC(data);
+      console.log("data", data);
     }
     fetchData();
     //eslint-disable-next-line
   }, []);
-  console.log("all token", data);
+
+  function handleValueChange(value, txIndex, blockIndex, peer, type) {
+    let newData;
+    let newArr;
+    let newChangeArr;
+    console.log("check", value, dataB[blockIndex].txs[txIndex].value);
+    if (peer === "PeerA") {
+      newData = [...dataA];
+      newChangeArr = changeColorA;
+    } else if (peer === "PeerB") {
+      newData = [...dataB];
+      newChangeArr = changeColorB;
+    } else {
+      newData = [...dataC];
+      newChangeArr = changeColorC;
+    }
+
+    if (value === dataA[blockIndex].txs[txIndex].value) {
+      setchangeColorA([false, false, false, false, false]);
+    } else {
+      for (let i = blockIndex; i < 5; i++) {
+        newChangeArr[i] = true;
+      }
+    }
+    newData[blockIndex].txs[txIndex][type] = value;
+    newArr = [...hashValuesA];
+    newArr[blockIndex] = calcHash(value);
+
+    if (peer === "PeerA") {
+      setHashValuesA([...newArr]);
+      setDataA([...newData]);
+      setchangeColorA([...newChangeArr]);
+    } else if (peer === "PeerB") {
+      setHashValuesB([...newArr]);
+      setDataB([...newData]);
+      setchangeColorB([...newChangeArr]);
+    } else {
+      setHashValuesC([...newArr]);
+      setDataC([...newData]);
+      setchangeColorC([...newChangeArr]);
+    }
+  }
+  function handleFromChange(value, index) {}
+  function handleToChange(value, index) {}
+
+  async function handleSubmit(e, peer, index) {
+    e.preventDefault();
+    let newHash;
+    let newArr, changeArr;
+    if (peer === "PeerA") {
+      newHash = hashValuesA;
+      newArr = [...dataA];
+      changeArr = changeColorA;
+    } else if (peer === "PeerB") {
+      newHash = hashValuesB;
+      newArr = [...dataB];
+      changeArr = changeColorB;
+    } else if (peer === "PeerC") {
+      newHash = hashValuesC;
+      newArr = [...dataC];
+      changeArr = changeColorC;
+    }
+    try {
+      const {
+        data: { data },
+      } = await postBlock(newArr[index]);
+      newArr[index] = data;
+      newHash[index] = data.hash;
+      changeArr[index] = false;
+      if (peer === "PeerA") {
+        setHashValuesA([...newHash]);
+        setDataA([...newArr]);
+        setchangeColorA([...changeArr]);
+      } else if (peer === "PeerB") {
+        setHashValuesB([...newHash]);
+        setDataB([...newArr]);
+        setchangeColorB([...changeArr]);
+      } else {
+        setHashValuesC([...newHash]);
+        setDataC([...newArr]);
+        setchangeColorC([...changeArr]);
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+
   return (
-    <div>
+    <>
       <h1>Tokens</h1>
-      {["Peer A", "Peer B", "Peer C"].map((peer) => (
-        <>
-          <section class="tokens-section-peer-A mt-4">
-            <div class="container-fluid">
-              <h2>{peer}</h2>
-              <div class="scrolling-wrapper">
-                <div class="container1">
-                  {data.length > 0 &&
-                    data.map((token) => (
-                      <>
-                        <div class="row d-inline">
-                          <div class="col-xs-7">
-                            <div class="form form-bg-sucess">
-                              <form class="form-horizontal">
-                                <div class="form-group row mb-3">
-                                  <label class="col-sm-2 label">Block:</label>
-                                  <div class="col-sm-10">
-                                    <div class="input-group">
-                                      <span class="input-group-addon">#</span>
-                                      <input
-                                        class="form-control"
-                                        type="number"
-                                        value={token.block}
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="form-group row mb-3">
-                                  <label class="col-sm-2 label">Nonce:</label>
-                                  <div class="col-sm-10">
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      value={token.nonce}
-                                    />
-                                  </div>
-                                </div>
-                                <div class="form-group row mb-3">
-                                  <label class="col-12 label-left">Tx:</label>
-                                  <div class="col-12">
-                                    {token.txs.map((tx) => (
-                                      <>
-                                        <div class="input-group">
-                                          <div class="input-group-addon">$</div>
-                                          <input
-                                            class="form-control"
-                                            type="text"
-                                            value={tx.value}
-                                          />
-                                          <div class="input-group-addon">
-                                            From:
-                                          </div>
-                                          <input
-                                            class="form-control"
-                                            type="text"
-                                            value={tx.from}
-                                          />
-                                          <div class="input-group-addon">
-                                            -&gt;
-                                          </div>
-                                          <input
-                                            class="form-control"
-                                            type="text"
-                                            value={tx.to}
-                                          />
-                                        </div>
-                                      </>
-                                    ))}
-                                  </div>
-                                </div>
-                                <div class="form-group row mb-3">
-                                  <label class="col-sm-2 label">Prev:</label>
-                                  <div class="col-sm-10">
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      value={token.previous}
-                                    />
-                                  </div>
-                                </div>
-                                <div class="form-group row mb-3">
-                                  <label class="col-sm-2 label">Hash:</label>
-                                  <div class="col-sm-10">
-                                    <input
-                                      class="form-control"
-                                      type="text"
-                                      disabled
-                                      readOnly
-                                      value={token.hash}
-                                    />
-                                  </div>
-                                </div>
-                                <div class="form-group row mb-3">
-                                  <div class="col-sm-2">
-                                    <i class="icon-spinner icon-spin icon-large"></i>
-                                  </div>
-                                  <div class="col-sm-10">
-                                    <button
-                                      class="btn btn-primary ladda-button"
-                                      id="block1chain1mineButton"
-                                      data-style="expand-right"
-                                    >
-                                      <span class="ladda-label">Mine</span>
-                                    </button>
-                                  </div>
-                                </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </>
-                    ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        </>
-      ))}
-    </div>
+
+      <div>
+        {dataA.length > 0 && (
+          <TokensForm
+            data={dataA}
+            peer="PeerA"
+            changeColor={changeColorA}
+            handleToChange={handleToChange}
+            handleFromChange={handleFromChange}
+            handleValueChange={handleValueChange}
+            handleSubmit={handleSubmit}
+            hashValues={hashValuesA}
+          />
+        )}
+      </div>
+      <div>
+        {dataB.length > 0 && (
+          <TokensForm
+            data={dataB}
+            peer="PeerB"
+            changeColor={changeColorB}
+            handleToChange={handleToChange}
+            handleFromChange={handleFromChange}
+            handleValueChange={handleValueChange}
+            handleSubmit={handleSubmit}
+            hashValues={hashValuesB}
+          />
+        )}
+      </div>
+      <div>
+        {dataC.length > 0 && (
+          <TokensForm
+            data={dataC}
+            peer="PeerC"
+            changeColor={changeColorC}
+            handleToChange={handleToChange}
+            handleFromChange={handleFromChange}
+            handleValueChange={handleValueChange}
+            handleSubmit={handleSubmit}
+            hashValues={hashValuesC}
+          />
+        )}
+      </div>
+    </>
   );
 };
 
