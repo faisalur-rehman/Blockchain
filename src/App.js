@@ -8,11 +8,11 @@ import Block from "./components/Block/Block";
 import BlockChain from "./components/BlockChain/Blockchain";
 import Coinbase from "./components/Coinbase/Coinbase";
 import KeysHeader from "./components/Keys/KeysHeader/KeyHeader";
-import Transaction from "./components/Keys/Transaction/Transaction";
 import KeyPair from "./components/Keys/KeyPairs/KeyPair";
 import KeyBlockchain from "./components/Keys/Blockchain/KeyBlockchain";
 import Signature from "./components/Keys/Signatures/Signature";
 import Tokens from "./components/Tokens/Tokens";
+import Transaction from "./components/Keys/Transaction/Transaction";
 
 function App() {
   const [calcHash] = useCrypto();

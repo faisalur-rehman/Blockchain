@@ -4,6 +4,7 @@ import SignatureForm from "./SignatureForm";
 
 const Signature = () => {
   const [privateKey, setPrivateKey] = useState("");
+  const [publicKey, setPublicKey] = useState("");
   const [data, setData] = useState();
   const [message, setMessage] = useState();
   const [signature, setSignature] = useState();
@@ -14,6 +15,7 @@ const Signature = () => {
       } = await getKey();
       setPrivateKey(data.private);
       setData(data);
+      setPublicKey(data.public);
     }
     fetchBlockData();
     //eslint-disable-next-line
@@ -36,7 +38,7 @@ const Signature = () => {
     try {
       const {
         data: { data },
-      } = await verifySignature({ public_key: privateKey, message, signature });
+      } = await verifySignature({ public_key: publicKey, message, signature });
       setSignature(data.signature);
       console.log("verified data", data);
     } catch (error) {
@@ -54,6 +56,7 @@ const Signature = () => {
           signature={signature}
           message={message}
           handleVerifySubmit={handleVerifySubmit}
+          publicKey={publicKey}
         />
       )}
     </div>

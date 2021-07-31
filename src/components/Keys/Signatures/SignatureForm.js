@@ -7,6 +7,7 @@ const SignatureForm = ({
   handleSubmit,
   handleVerifySubmit,
   signature,
+  publicKey,
 }) => {
   return (
     <div>
@@ -124,7 +125,7 @@ const SignatureForm = ({
                       <input
                         class="form-control"
                         id="publicKey"
-                        value={privateKey}
+                        value={publicKey}
                       />
                     </div>
                     <div class="form-group mb-3">
