@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getBlockChain } from "../../api/blockchain-api";
+import { getBlockChain, postBlock } from "../../api/blockchain-api";
 import { useCrypto } from "../../hooks/useCrypto";
 import BlockChainForm from "./BlockChainForm";
 
@@ -7,8 +7,14 @@ const BlockChain = () => {
   const [calcHash] = useCrypto();
 
   const [data, setData] = useState([]);
-  const [hash, setHash] = useState();
   const [hashValues, setHashValues] = useState([]);
+  const [changeColor, setChangeColor] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   useEffect(() => {
     async function fetchBlockData() {
@@ -23,11 +29,47 @@ const BlockChain = () => {
   }, []);
 
   function handleChange(value, index) {
-    console.log("value", value);
-    setHash(calcHash(value));
+    let newChangeArr = changeColor;
+
+    let newArr;
+    if (value === "") {
+      newArr = hashValues;
+      newArr[index] = data[index].hash;
+      setHashValues([...newArr]);
+      setChangeColor([false, false, false, false, false]);
+    } else {
+      for (let i = index; i < 5; i++) {
+        newChangeArr[i] = true;
+      }
+      setChangeColor([...newChangeArr]);
+      newArr = hashValues;
+      newArr[index] = calcHash(value);
+      setHashValues([...newArr]);
+    }
   }
 
-  console.log("data", hash);
+  async function handleSubmit(e, block, previous, index) {
+    let newArr = data;
+    let newHashValues = hashValues;
+    let colorArr = changeColor;
+    e.preventDefault();
+    try {
+      const {
+        data: { data },
+      } = await postBlock({ block, previous });
+      console.log("returned data", data);
+      newArr[index] = data;
+      newHashValues[index] = data.hash;
+      colorArr[index] = false;
+      setChangeColor([...colorArr]);
+      setHashValues([...newHashValues]);
+      setData([...newArr]);
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
+
+  console.log("data", data);
 
   return (
     <div>
@@ -36,7 +78,8 @@ const BlockChain = () => {
           data={data}
           hashValues={hashValues}
           handleChange={handleChange}
-          hash={hash}
+          changeColor={changeColor}
+          handleSubmit={handleSubmit}
         />
       )}
     </div>

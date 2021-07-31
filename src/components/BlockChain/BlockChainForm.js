@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from "react";
+// import Block from "../Block/Block";
 
-const BlockChainForm = ({ data, hashValues, handleChange, hash }) => {
-  const [prevValues, setPrevValues] = useState([
-    "0000000000000000000000000000000000000000000000000000000000000000",
-  ]);
-  console.log("hash", hash);
+const BlockChainForm = ({
+  data,
+  hashValues,
+  handleChange,
+  changeColor,
+  handleSubmit,
+}) => {
+  const [prevValues, setPrevValues] = useState([]);
   useEffect(() => {
-    hashValues.map((hash) => setPrevValues((prev) => [...prev, hash]));
+    setPrevValues([
+      "0000000000000000000000000000000000000000000000000000000000000000",
+      ...hashValues,
+    ]);
     //eslint-disable-next-line
-  }, []);
-  console.log("prevVales", prevValues);
+  }, [hashValues]);
   return (
     <div>
       <section className="blockchain-section mt-4">
@@ -22,8 +28,22 @@ const BlockChainForm = ({ data, hashValues, handleChange, hash }) => {
                   <>
                     <div className="row d-inline">
                       <div className="col-xs-7">
-                        <div className="form form-bg-sucess">
-                          <form className="form-horizontal">
+                        <div
+                          className={`form form-bg-sucess ${
+                            changeColor[index] ? "bg" : ""
+                          }`}
+                        >
+                          <form
+                            className="form-horizontal"
+                            onSubmit={(e) =>
+                              handleSubmit(
+                                e,
+                                block.block,
+                                prevValues[index],
+                                index
+                              )
+                            }
+                          >
                             <div className="form-group row mb-3">
                               <label className="col-sm-2 label">Block:</label>
                               <div className="col-sm-10">
@@ -78,7 +98,7 @@ const BlockChainForm = ({ data, hashValues, handleChange, hash }) => {
                                   type="text"
                                   disabled
                                   readOnly
-                                  value={block.hash}
+                                  value={hashValues[index]}
                                 />
                               </div>
                             </div>
