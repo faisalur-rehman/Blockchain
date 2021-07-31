@@ -6,8 +6,6 @@ const TokensForm = ({
   hashValues,
   handleSubmit,
   handleValueChange,
-  handleFromChange,
-  handleToChange,
   changeColor,
 }) => {
   const [prevValues, setPrevValues] = useState([]);
